@@ -50,8 +50,8 @@ The mean and SD are `r mean(hundreddices)` and `r sd(hundreddices)` respectively
 
 ## Table
 
-```{r}
-#require(plyr)
-#ldply(data.frame(onedice, fivedices,hundreddices),mean)
+```{r results='asis', echo=FALSE}
+library(plyr)
+kable(ldply(data.frame(onedice, fivedices,hundreddices),function(x) { c(mean(x), sd(x)) }))
 ```
 [dice]: dice01.jpg

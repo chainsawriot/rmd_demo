@@ -19,7 +19,7 @@ drawn from a given **parent population**.
 
 ## Demonstration: rolling a six-sided dice
 
-![dice][dice]
+![dice](dice01.jpg)
 
 ## Rolling one dice for 100000 times
 
@@ -30,20 +30,20 @@ hist(onedice, main="Rolling one dice for 100000 times", xlab="Score", ylab="Freq
 
 The mean and SD are `r mean(onedice)` and `r sd(onedice)` respectively.
 
-## Rolling five dices, calculate the sample mean for 100000 times
+## Rolling five dices for 100000 times
 
 ```{r fig.width=7, fig.height=6}
 fivedices <- replicate(100000, mean(sample(c(1,2,3,4,5,6), 5, replace=TRUE)))
-hist(fivedices, main="Mean score of 5 dices, repeat for 100000 times", xlab="Score", ylab="Freq", xlim=c(0,7))
+hist(fivedices, main="Sample Mean score of 5 dices, repeat for 100000 times", xlab="Sample mean", ylab="Freq", xlim=c(0,7))
 ```
 
 The mean and SD are `r mean(fivedices)` and `r sd(fivedices)` respectively.
 
-## Rolling 100 dices, calculate the sample mean for 100000 times
+## Rolling 100 dices for 100000 times
 
 ```{r fig.width=7, fig.height=6}
 hundreddices <- replicate(100000, mean(sample(c(1,2,3,4,5,6), 100, replace=TRUE)))
-hist(hundreddices, main="Mean score of 100 dices, repeat for 100000 times", xlab="Score", ylab="Freq", xlim=c(0,7))
+hist(hundreddices, main="Sample Mean score of 100 dices, repeat for 100000 times", xlab="Sample mean", ylab="Freq", xlim=c(0,7))
 ```
 
 The mean and SD are `r mean(hundreddices)` and `r sd(hundreddices)` respectively.
@@ -52,6 +52,7 @@ The mean and SD are `r mean(hundreddices)` and `r sd(hundreddices)` respectively
 
 ```{r results='asis', echo=FALSE}
 library(plyr)
-kable(ldply(data.frame(onedice, fivedices,hundreddices),function(x) { c(mean(x), sd(x)) }))
+summary.table <- ldply(data.frame(onedice, fivedices,hundreddices),function(x) { c(mean(x), sd(x)) })
+colnames(summary.table) <- c("simulation", "mean", "SD")
+kable(summary.table)
 ```
-[dice]: dice01.jpg
